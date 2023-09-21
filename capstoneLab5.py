@@ -6,30 +6,36 @@ import sqlite3
 # initialize database
 db = 'chainsaw_record_holder_db.db'
 
+
 # create database
 def create_table():
     with sqlite3.connect(db) as conn:
         # to reset table
         # conn.execute('DROP TABLE IF EXISTS chainsaws_juggling_record_holders')
         conn.execute(
-            'CREATE TABLE IF NOT EXISTS chainsaws_juggling_record_holders (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,name text UNIQUE, Country text, Number_of_catches int )')
+            'CREATE TABLE IF NOT EXISTS chainsaws_juggling_record_holders (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT '
+            'NULL,name text UNIQUE, Country text, Number_of_catches int )')
 
     conn.close()
+
 
 # asks for name
 def users_record_holder_name():
     name = input('Name of Record Holder: ')
     return name
 
+
 # ask for country of record holder
 def users_record_holder_country():
     country = input('Record Holder\'s Country: ')
     return country
 
+
 # asks for number of catches of the record holder
 def users_record_holder_catches():
     catches = int(input('Number of catches: '))
     return catches
+
 
 def main():
     menu_text = """
@@ -99,18 +105,18 @@ def search_by_name():
 
 
 def add_new_record():
-
     # Users add record holder
     record_holder_name = users_record_holder_name()
     record_holder_country = users_record_holder_country()
     record_holder_catches = users_record_holder_catches()
 
-# Try - catch for error handling
+    # Try - catch for error handling
     try:
         # context manager to save the data to db
         with sqlite3.connect(db) as conn:
-            conn.execute('INSERT INTO chainsaws_juggling_record_holders (name,Country,Number_of_catches) VALUES (?,?,?)',
-                         (record_holder_name, record_holder_country, record_holder_catches))
+            conn.execute(
+                'INSERT INTO chainsaws_juggling_record_holders (name,Country,Number_of_catches) VALUES (?,?,?)',
+                (record_holder_name, record_holder_country, record_holder_catches))
         print('Record Holder added')
 
         conn.close()
@@ -139,7 +145,6 @@ def edit_existing_record():
 
 
 def delete_record():
-
     record_holder_name = users_record_holder_name()
 
     try:
